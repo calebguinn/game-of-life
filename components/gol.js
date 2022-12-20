@@ -25,35 +25,6 @@ const operations = [
   [-1, 0]
 ];
 
-function Board() {
-  return (
-    <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${numCols}, 10px)`
-        }}
-      >
-        {grid.map((rows, i) => rows.map((col, j) => (
-          <div
-            key={`${i}-${j}`}
-            onClick={() => {
-              const newGrid = produce(grid, gridCopy => {
-                gridCopy[i][j] = grid[i][j] ? 0 : 1;
-              });
-              setGrid(newGrid);
-            }}
-            style={{
-              width: 10,
-              height: 10,
-              backgroundColor: grid[i][j] ? "black" : undefined,
-              border: "solid 0.5px black"
-            }} />
-        ))
-        )}
-      </div>
-  )
-}
-
 function Game() {
   const [grid, setGrid] = useState(() => {
     return generateEmptyGrid();
