@@ -14,7 +14,7 @@ import {
 const Home = () => {
   return (
     <Container>
-      <Box>Hello</Box>
+     
     </Container>
   )
 }
