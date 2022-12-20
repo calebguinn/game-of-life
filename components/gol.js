@@ -94,7 +94,8 @@ function Game() {
     setTimeout(runSimulation, 100);
   }, []);
 
-  const activeColor = useColorModeValue('black','white')
+  const activeColor = useColorModeValue('#202023','#f0e7db')
+  const inactiveColor = useColorModeValue('#f0e7db', '#202023')
 
   return (
     <>
@@ -116,7 +117,9 @@ function Game() {
             style={{
               width: 10,
               height: 10,
-              backgroundColor: grid[i][j] ? `${activeColor}` : undefined
+              backgroundColor: grid[i][j] ? `${activeColor}` : undefined,
+              border: "solid 0.5px",
+              borderColor: `${inactiveColor}`
             }} />
           ))
         )}
