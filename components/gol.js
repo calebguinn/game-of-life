@@ -1,10 +1,11 @@
 import React, { useState, useCallback, useRef } from "react";
+import { Button, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 import produce from "immer";
 
-export const numRows = 50;
-export const numCols = 100;
+const numRows = 50;
+const numCols = 100;
 
-export const generateEmptyGrid = () => {
+const generateEmptyGrid = () => {
   const rows = [];
   for (let i = 0; i < numRows; i++) {
     rows.push(Array.from(Array(numCols), () => 0));
@@ -13,7 +14,7 @@ export const generateEmptyGrid = () => {
   return rows;
 };
 
-export const operations = [
+const operations = [
   [0, 1],
   [0, -1],
   [1, -1],
@@ -24,7 +25,36 @@ export const operations = [
   [-1, 0]
 ];
 
-function App() {
+function Board() {
+  return (
+    <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${numCols}, 10px)`
+        }}
+      >
+        {grid.map((rows, i) => rows.map((col, j) => (
+          <div
+            key={`${i}-${j}`}
+            onClick={() => {
+              const newGrid = produce(grid, gridCopy => {
+                gridCopy[i][j] = grid[i][j] ? 0 : 1;
+              });
+              setGrid(newGrid);
+            }}
+            style={{
+              width: 10,
+              height: 10,
+              backgroundColor: grid[i][j] ? "black" : undefined,
+              border: "solid 0.5px black"
+            }} />
+        ))
+        )}
+      </div>
+  )
+}
+
+function Game() {
   const [grid, setGrid] = useState(() => {
     return generateEmptyGrid();
   });
@@ -64,40 +94,10 @@ function App() {
     setTimeout(runSimulation, 100);
   }, []);
 
+  const activeColor = useColorModeValue('black','white')
+
   return (
     <>
-      <button
-        onClick={() => {
-          setRunning(!running);
-          if (!running) {
-            runningRef.current = true;
-            runSimulation();
-          }
-        }}
-      >
-        {running ? "stop" : "start"}
-      </button>
-      <button
-        onClick={() => {
-          const rows = [];
-          for (let i = 0; i < numRows; i++) {
-            rows.push(
-              Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
-            );
-          }
-
-          setGrid(rows);
-        }}
-      >
-        random
-      </button>
-      <button
-        onClick={() => {
-          setGrid(generateEmptyGrid());
-        }}
-      >
-        clear
-      </button>
       <div
         style={{
           display: "grid",
@@ -116,15 +116,46 @@ function App() {
             style={{
               width: 10,
               height: 10,
-              backgroundColor: grid[i][j] ? "black" : undefined,
-              border: "solid 0.5px black"
+              backgroundColor: grid[i][j] ? `${activeColor}` : undefined
             }} />
-        ))
+          ))
         )}
       </div>
+      <Button
+        onClick={() => {
+          setRunning(!running);
+          if (!running) {
+            runningRef.current = true;
+            runSimulation();
+          }
+        }}
+      >
+        {running ? "stop" : "start"}
+      </Button>
+      <Button
+        onClick={() => {
+          const rows = [];
+          for (let i = 0; i < numRows; i++) {
+            rows.push(
+              Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
+            );
+          }
+
+          setGrid(rows);
+        }}
+      >
+        random
+      </Button>
+      <Button
+        onClick={() => {
+          setGrid(generateEmptyGrid());
+        }}
+      >
+        clear
+      </Button>
     </>
   );
 }
 
 
-export default App;
+export default Game;
