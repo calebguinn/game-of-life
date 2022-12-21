@@ -25,7 +25,7 @@ const LinkItem = ({ href, path, target, children, ...props }) => {
     <NextLink href={href} passHref scroll={false}>
       <Link
         p={2}
-        bg={active ? 'grassTeal' : undefined}
+        bg={active ? '#70EFFC' : undefined}
         color={active ? '#202023' : inactiveColor}
         target={target}
         {...props}
@@ -44,7 +44,7 @@ const NavBar = props => {
       position="fixed"
       as="nav"
       w="100%"
-      bg={useColorModeValue('#ffffff40', '#20202380')}
+      bg={useColorModeValue('#ffffff40', '#050D2180')}
       css={{ backdropFilter: 'blur(10px)' }}
       zIndex={2}
       {...props}
@@ -59,7 +59,14 @@ const NavBar = props => {
       >
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
-            Game of Life
+            <Link href="/" scroll={false}>
+              <Text
+                color={useColorModeValue('gray.800', 'whiteAlpha.900')}
+                fontFamily='Press Start 2P'
+              >
+                Game of Life
+              </Text>
+            </Link>
           </Heading>
         </Flex>
         <Stack

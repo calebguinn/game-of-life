@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useRef } from "react";
-import { Button, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Container, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 import produce from "immer";
 
 const numRows = 50;
-const numCols = 100;
+const numCols = 120;
 
 const generateEmptyGrid = () => {
   const rows = [];
@@ -65,11 +65,11 @@ function Game() {
     setTimeout(runSimulation, 100);
   }, []);
 
-  const activeColor = useColorModeValue('#202023','#f0e7db')
-  const inactiveColor = useColorModeValue('#f0e7db', '#202023')
+  const activeColor = useColorModeValue('black','white')
+  const inactiveColor = useColorModeValue('#f0e7db', '#3d3d42')
 
   return (
-    <>
+    <Box w='100%' bg="#202023" p={5} mt='10' borderRadius='lg'>
       <div
         style={{
           display: "grid",
@@ -96,6 +96,7 @@ function Game() {
         )}
       </div>
       <Button
+        bgColor='#EB4595'
         onClick={() => {
           setRunning(!running);
           if (!running) {
@@ -107,6 +108,7 @@ function Game() {
         {running ? "stop" : "start"}
       </Button>
       <Button
+        bgColor='#EB4595'
         onClick={() => {
           const rows = [];
           for (let i = 0; i < numRows; i++) {
@@ -121,13 +123,14 @@ function Game() {
         random
       </Button>
       <Button
+        bgColor='#EB4595'
         onClick={() => {
           setGrid(generateEmptyGrid());
         }}
       >
         clear
       </Button>
-    </>
+    </Box>
   );
 }
 
