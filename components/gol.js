@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from "react";
-import { Box, Button, Container, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
+import { IoPlay, IoStop } from "react-icons/io5";
+import { Box, Button, Center, useColorModeValue, Stack } from "@chakra-ui/react";
 import produce from "immer";
 
 const numRows = 50;
@@ -70,66 +71,76 @@ function Game() {
 
   return (
     <Box w='100%' bg="#202023" p={5} mt='10' borderRadius='lg'>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${numCols}, 10px)`
-        }}
-      >
-        {grid.map((rows, i) => rows.map((col, j) => (
-          <div
-            key={`${i}-${j}`}
-            onClick={() => {
-              const newGrid = produce(grid, gridCopy => {
-                gridCopy[i][j] = grid[i][j] ? 0 : 1;
-              });
-              setGrid(newGrid);
-            }}
-            style={{
-              width: 10,
-              height: 10,
-              backgroundColor: grid[i][j] ? `${activeColor}` : undefined,
-              border: "solid 0.5px",
-              borderColor: `${inactiveColor}`
-            }} />
-          ))
-        )}
-      </div>
-      <Button
-        bgColor='#EB4595'
-        onClick={() => {
-          setRunning(!running);
-          if (!running) {
-            runningRef.current = true;
-            runSimulation();
-          }
-        }}
-      >
-        {running ? "stop" : "start"}
-      </Button>
-      <Button
-        bgColor='#EB4595'
-        onClick={() => {
-          const rows = [];
-          for (let i = 0; i < numRows; i++) {
-            rows.push(
-              Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
-            );
-          }
+      <Center>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${numCols}, 10px)`
+          }}
+        >
+          {grid.map((rows, i) => rows.map((col, j) => (
+            <div
+              key={`${i}-${j}`}
+              onClick={() => {
+                const newGrid = produce(grid, gridCopy => {
+                  gridCopy[i][j] = grid[i][j] ? 0 : 1;
+                });
+                setGrid(newGrid);
+              }}
+              style={{
+                width: 10,
+                height: 10,
+                backgroundColor: grid[i][j] ? `${activeColor}` : undefined,
+                border: "solid 0.5px",
+                borderColor: `${inactiveColor}`
+              }} />
+            ))
+          )}
+        </div>
+      </Center>
+      <Stack justifyContent='center' direction='row' pt={5} spacing={4} align='center'>
+        <Button
+          bgColor='#EB4595'
+          onClick={() => {
+            const rows = [];
+            for (let i = 0; i < numRows; i++) {
+              rows.push(
+                Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
+              );
+            }
 
-          setGrid(rows);
-        }}
-      >
-        random
-      </Button>
-      <Button
-        bgColor='#EB4595'
-        onClick={() => {
-          setGrid(generateEmptyGrid());
-        }}
-      >
-        clear
-      </Button>
+            setGrid(rows);
+          }}
+        >
+          Random
+        </Button>
+        <Button
+          bgColor='#EB4595'
+          onClick={() => {
+            setRunning(!running);
+            if (!running) {
+              runningRef.current = true;
+              runSimulation();
+            }
+          }}
+        >
+          {running ? <IoStop /> : <IoPlay />}
+          {running ? "Stop" : "Start"}
+        </Button>
+        <Button
+          bgColor='#EB4595'
+        >
+          Next
+        </Button>
+        <Button
+          bgColor='#EB4595'
+          onClick={() => {
+            setGrid(generateEmptyGrid());
+          }}
+        >
+          Reset
+        </Button>
+      </Stack>
     </Box>
   );
 }

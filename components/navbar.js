@@ -59,7 +59,7 @@ const NavBar = props => {
       >
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
-            <Link href="/" scroll={false}>
+            <Link href="/" path={path}>
               <Text
                 color={useColorModeValue('gray.800', 'whiteAlpha.900')}
                 fontFamily='Press Start 2P'
