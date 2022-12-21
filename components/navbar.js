@@ -17,6 +17,7 @@ import {
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { IoLogoGithub } from 'react-icons/io5'
 import ThemeToggleButton from './theme-toggle-button'
+import CustomHeader from './header'
 
 const LinkItem = ({ href, path, target, children, ...props }) => {
   const active = path === href
@@ -51,7 +52,7 @@ const NavBar = props => {
     >
       <Container
         display="flex"
-        p={2}
+        p={4}
         maxW="container.xl"
         wrap="wrap"
         align="center"
@@ -59,14 +60,7 @@ const NavBar = props => {
       >
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
-            <Link href="/" path={path}>
-              <Text
-                color={useColorModeValue('gray.800', 'whiteAlpha.900')}
-                fontFamily='Press Start 2P'
-              >
-                Game of Life
-              </Text>
-            </Link>
+            <CustomHeader />
           </Heading>
         </Flex>
         <Stack
