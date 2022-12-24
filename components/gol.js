@@ -90,9 +90,8 @@ function Game() {
               style={{
                 width: 10,
                 height: 10,
-                backgroundColor: grid[i][j] ? `${activeColor}` : undefined,
-                border: "solid 0.5px",
-                borderColor: `${inactiveColor}`
+                backgroundColor: grid[i][j] ? 'white' : undefined,
+                border: "solid 0.5px #3d3d42"
               }} />
             ))
           )}
@@ -100,7 +99,7 @@ function Game() {
       </Center>
       <Stack justifyContent='center' direction='row' pt={5} spacing={4} align='center'>
         <Button
-          bgColor='#EB4595'
+          bgColor={useColorModeValue('#70EFFC','#EB4595')}
           onClick={() => {
             const rows = [];
             for (let i = 0; i < numRows; i++) {
@@ -111,11 +110,12 @@ function Game() {
 
             setGrid(rows);
           }}
+          _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
         >
           Random
         </Button>
         <Button
-          bgColor='#EB4595'
+          bgColor={useColorModeValue('#70EFFC','#EB4595')}
           onClick={() => {
             setRunning(!running);
             if (!running) {
@@ -123,20 +123,47 @@ function Game() {
               runSimulation();
             }
           }}
+          _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
         >
           {running ? <IoStop /> : <IoPlay />}
           {running ? "Stop" : "Start"}
         </Button>
         <Button
-          bgColor='#EB4595'
+          bgColor={useColorModeValue('#70EFFC','#EB4595')}
+          _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
+          onClick={() => {
+            setGrid(g => {
+              return produce(g, gridCopy => {
+                for (let i = 0; i < numRows; i++) {
+                  for (let j = 0; j < numCols; j++) {
+                    let neighbors = 0;
+                    operations.forEach(([x, y]) => {
+                      const newX = i + x;
+                      const newY = j + y;
+                      if (newX >= 0 && newX < numRows && newY >= 0 && newY < numCols) {
+                        neighbors += g[newX][newY];
+                      }
+                    });
+        
+                    if (neighbors < 2 || neighbors > 3) {
+                      gridCopy[i][j] = 0;
+                    } else if (g[i][j] === 0 && neighbors === 3) {
+                      gridCopy[i][j] = 1;
+                    }
+                  }
+                }
+              });
+            });
+          }}
         >
           Next
         </Button>
         <Button
-          bgColor='#EB4595'
+          bgColor={useColorModeValue('#70EFFC','#EB4595')}
           onClick={() => {
             setGrid(generateEmptyGrid());
           }}
+          _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
         >
           Reset
         </Button>
