@@ -73,6 +73,7 @@ const Home = () => {
                 </Text>
                 <Spacer />
                 <Image src={survivalBefore} width={100} />
+                <ArrowForwardIcon boxSize={6} />
                 <Image src={survivalAfter} width={100} />
               </Stack>
             </ListItem>
