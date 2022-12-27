@@ -15,6 +15,12 @@ import Image from 'next/image'
 import Section from '../components/section'
 import reproductionBefore from "/public/images/rules/reproductionBefore.png"
 import reproductionAfter from "/public/images/rules/reproductionAfter.png"
+import overpopulationBefore from "/public/images/rules/overpopulationBefore.png"
+import overpopulationAfter from "/public/images/rules/overpopulationAfter.png"
+import underpopulationBefore from "/public/images/rules/underpopulationBefore.png"
+import underpopulationAfter from "/public/images/rules/underpopulationAfter.png"
+import survivalBefore from "/public/images/rules/survivalBefore.png"
+import survivalAfter from "/public/images/rules/survivalAfter.png"
 
 const Home = () => {
   return (
@@ -28,17 +34,23 @@ const Home = () => {
         <OrderedList>
             <ListItem>
               Reproduction
-              <Image src={reproductionBefore} />
-              <Image src={reproductionAfter} />
+              <Image src={reproductionBefore} width={100} />
+              <Image src={reproductionAfter} width={100} />
             </ListItem>
             <ListItem>
               Overpopulation
+              <Image src={overpopulationBefore} width={100} />
+              <Image src={overpopulationAfter} width={100} />
             </ListItem>
             <ListItem>
               Underpopulation
+              <Image src={underpopulationBefore} width={100} />
+              <Image src={underpopulationAfter} width={100} />
             </ListItem>
             <ListItem>
               Survival
+              <Image src={survivalBefore} width={100} />
+              <Image src={survivalAfter} width={100} />
             </ListItem>
           </OrderedList>
       </Section>
