@@ -77,17 +77,18 @@ const NavBar = props => {
           <LinkItem href="/about" path={path}>
             About
           </LinkItem>
-          <LinkItem 
-            target="_blank"
+          <Link 
             href="https://github.com/calgui1/game-of-life"
-            path={path}
+            rel="noopener noreferrer"
+            target="_blank"
             display="inline-flex"
             alignItems="center"
             style={{ gap: 4 }}
-            pl={2}
+            p={2}
+            color={useColorModeValue('gray200','whiteAlpha.900')}
           >
             <IoLogoGithub />Source Code
-          </LinkItem>
+          </Link>
         </Stack>
 
         <Box flex={1} align="right">
