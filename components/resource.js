@@ -1,7 +1,5 @@
 import { Box, LinkBox, LinkOverlay, Text } from "@chakra-ui/react";
-import { Global } from "@emotion/react";
 import Image from "next/image";
-import { AiFillYoutube } from "react-icons/ai"
 
 export const ResourceItem = ({ title, thumbnail, width, height }) => (
   <Box 
@@ -15,7 +13,6 @@ export const ResourceItem = ({ title, thumbnail, width, height }) => (
     <Image
       src={thumbnail}
       alt={title}
-      placeholder="blur"
       loading="lazy"
     />
     <Text mt={2} mb={2}>{title}</Text>
