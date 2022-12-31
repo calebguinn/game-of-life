@@ -1,8 +1,14 @@
-import { Box, Button, Center, Container, Heading, Spacer, useColorModeValue } from "@chakra-ui/react"
+import { Box, Button, Container, Heading, SimpleGrid, useColorModeValue, Text } from "@chakra-ui/react"
+import Image from "next/image"
 import Section from "../components/section"
 import Paragraph from "../components/paragraph"
 import { VideoBox } from "../components/resource"
 import { ChevronRightIcon } from "@chakra-ui/icons"
+import stillBlock from "/public/images/still-lifes/block.png"
+import stillBehive from "/public/images/still-lifes/beehive.png"
+import stillBoat from "/public/images/still-lifes/boat.png"
+import stillLoaf from "/public/images/still-lifes/loaf.png"
+import stillTub from "/public/images/still-lifes/tub.png"
 
 const About = () => {
   return (
@@ -32,35 +38,37 @@ const About = () => {
           means that any computation done by a computer could also theoretically be done using a 
           very large Game of Life board. 
         </Paragraph>
-        <Box align="center">
+        <Box mt={5} mb={10} align="center">
           <Button
-            rightIcon={<ChevronRightIcon />}
+            as="a"
+            rightIcon={<ChevronRightIcon boxSize={6}/>}
             bgColor={useColorModeValue('#70EFFC','#EB4595')}
             _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
+            target="_blank"
+            href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life" 
           >
             Read More
-          </Button>
+          </Button>  
         </Box>
       </Section>
       <Section delay={0.3}>
-        <Center m={5}>
+        <SimpleGrid align="center" spacing="10px" columns={[1,null,2]} mt={5} mb={5}>
           <VideoBox
             width="460px"
             height="259px"
             href="https://www.youtube.com/embed/R9Plq-D1gEk"
             title="Game of Life History"
           />
-          <Spacer />
           <VideoBox
             width="460px"
             height="259px"
             href="https://www.youtube.com/embed/Kk2MH9O4pXY"
             title="Why the Game of Life is Turing Complete"
           />
-        </Center>
+        </SimpleGrid>
       </Section>
       <Section delay={0.4}>
-        <Heading pb={2} as='h2' align='center' variant='section-title'>
+        <Heading mt={10} pb={2} as='h2' align='center' variant='section-title'>
           Patterns
         </Heading>
         <Paragraph>
@@ -74,7 +82,19 @@ const About = () => {
           can function similarly to Oscillators but do not remain in the same position.
         </Paragraph>
       </Section>
-      <Section delay={0.4}>
+      <Section delay={0.5}>
+          <Box borderRadius="lg" w="100%" bg="#202023">
+            <Text fontFamily="heading" fontSize={14}>
+              Still Lifes
+            </Text>
+            <Image src={stillBlock} />
+            <Image src={stillBehive} />
+            <Image src={stillBoat} />
+            <Image src={stillLoaf} />
+            <Image src={stillTub} />
+          </Box>
+      </Section>
+      <Section delay={0.6}>
         <Heading pb={2} as='h2' align='center' variant='section-title'>
           More
         </Heading>
