@@ -1,4 +1,4 @@
-import { Box, Button, Container, Heading, SimpleGrid, useColorModeValue, Text } from "@chakra-ui/react"
+import { Box, Button, Container, Heading, SimpleGrid, useColorModeValue, Text, space } from "@chakra-ui/react"
 import Image from "next/image"
 import Section from "../components/section"
 import Paragraph from "../components/paragraph"
@@ -14,6 +14,8 @@ import oscillatorBlinker from "/public/images/oscillators/blinker.gif"
 import oscillatorPenta from "/public/images/oscillators/penta.gif"
 import oscillatorPulsar from "/public/images/oscillators/pulsar.gif"
 import oscillatorToad from "/public/images/oscillators/toad.gif"
+import spaceshipGlider from "/public/images/spaceships/glider.gif"
+import spaceshipLightweight from "/public/images/spaceships/light-spaceship.gif"
 
 const About = () => {
   return (
@@ -132,7 +134,7 @@ const About = () => {
             <Text fontFamily="heading" fontSize={14}>
               Oscillators
             </Text>
-            <SimpleGrid align="center" columns={[1,null,3]}>
+            <SimpleGrid align="center" mt={2} columns={[1,null,3]}>
               <ResourceItem
                 title="Beacon"
                 thumbnail={oscillatorBeacon}
@@ -152,7 +154,7 @@ const About = () => {
                 height="150px"
               />
             </SimpleGrid>
-            <SimpleGrid align="center" mt={2} columns={[1,null,2]}>
+            <SimpleGrid align="center" mt={4} columns={[1,null,2]}>
               <ResourceItem
                 title="Pulsar"
                 thumbnail={oscillatorPulsar}
@@ -167,6 +169,27 @@ const About = () => {
               />
             </SimpleGrid>
           </Box>
+      </Section>
+      <Section delay={0.7}>
+        <Box p={4} borderRadius="lg" maxW="100%" bg="#202023">
+          <Text fontFamily="heading" fontSize={14}>
+            Spaceships
+          </Text>
+          <SimpleGrid align="center" mt={2} columns={[1,null,2]}>
+            <ResourceItem
+                title="Glider"
+                thumbnail={spaceshipGlider}
+                width="150px"
+                height="150px"
+              />
+              <ResourceItem
+                title="Lightweight Spaceship"
+                thumbnail={spaceshipLightweight} 
+                width="150px"
+                height="150px"
+              />
+          </SimpleGrid>
+        </Box>
       </Section>
       <Section delay={0.6}>
         <Heading pb={2} as='h2' align='center' variant='section-title'>
