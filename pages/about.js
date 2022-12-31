@@ -2,10 +2,10 @@ import { Box, Button, Container, Heading, SimpleGrid, useColorModeValue, Text } 
 import Image from "next/image"
 import Section from "../components/section"
 import Paragraph from "../components/paragraph"
-import { VideoBox } from "../components/resource"
+import { ResourceItem, VideoBox } from "../components/resource"
 import { ChevronRightIcon } from "@chakra-ui/icons"
 import stillBlock from "/public/images/still-lifes/block.png"
-import stillBehive from "/public/images/still-lifes/beehive.png"
+import stillBeehive from "/public/images/still-lifes/beehive.png"
 import stillBoat from "/public/images/still-lifes/boat.png"
 import stillLoaf from "/public/images/still-lifes/loaf.png"
 import stillTub from "/public/images/still-lifes/tub.png"
@@ -83,15 +83,43 @@ const About = () => {
         </Paragraph>
       </Section>
       <Section delay={0.5}>
-          <Box borderRadius="lg" w="100%" bg="#202023">
+          <Box p={4} borderRadius="lg" maxW="100%" bg="#202023">
             <Text fontFamily="heading" fontSize={14}>
               Still Lifes
             </Text>
-            <Image src={stillBlock} />
-            <Image src={stillBehive} />
-            <Image src={stillBoat} />
-            <Image src={stillLoaf} />
-            <Image src={stillTub} />
+            
+            <SimpleGrid align="center" spacing="10px" mt={2} columns={[2,null,5]}>
+              <ResourceItem
+                title="Block"
+                thumbnail={stillBlock}
+                width="150px"
+                height="150px"
+              />
+              <ResourceItem
+                title="Tub"
+                thumbnail={stillTub} 
+                width="150px"
+                height="150px"
+              />
+              <ResourceItem
+                title="Beehive" 
+                thumbnail={stillBeehive} 
+                width="180px"
+                height="145px"
+              />
+              <ResourceItem
+                title="Boat"
+                thumbnail={stillBoat}
+                width="150px"
+                height="150px"
+              />
+              <ResourceItem
+                title="Loaf"
+                thumbnail={stillLoaf}
+                width="150px"
+                height="150px"
+              />
+            </SimpleGrid>
           </Box>
       </Section>
       <Section delay={0.6}>
