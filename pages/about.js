@@ -1,10 +1,12 @@
-import { Container, Heading } from "@chakra-ui/react"
+import { Box, Button, Center, Container, Heading, Spacer, useColorModeValue } from "@chakra-ui/react"
 import Section from "../components/section"
 import Paragraph from "../components/paragraph"
+import { VideoBox } from "../components/resource"
+import { ChevronRightIcon } from "@chakra-ui/icons"
 
 const About = () => {
   return (
-    <Container p={4} maxW='container.md'>
+    <Container p={4} maxW='container.lg'>
       <Section delay={0.1}>
         <Heading pb={2} as='h2' align='center' variant='section-title'>
           History
@@ -30,8 +32,34 @@ const About = () => {
           means that any computation done by a computer could also theoretically be done using a 
           very large Game of Life board. 
         </Paragraph>
+        <Box align="center">
+          <Button
+            rightIcon={<ChevronRightIcon />}
+            bgColor={useColorModeValue('#70EFFC','#EB4595')}
+            _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
+          >
+            Read More
+          </Button>
+        </Box>
       </Section>
       <Section delay={0.3}>
+        <Center m={5}>
+          <VideoBox
+            width="460px"
+            height="259px"
+            href="https://www.youtube.com/embed/R9Plq-D1gEk"
+            title="Game of Life History"
+          />
+          <Spacer />
+          <VideoBox
+            width="460px"
+            height="259px"
+            href="https://www.youtube.com/embed/Kk2MH9O4pXY"
+            title="Why the Game of Life is Turing Complete"
+          />
+        </Center>
+      </Section>
+      <Section delay={0.4}>
         <Heading pb={2} as='h2' align='center' variant='section-title'>
           Patterns
         </Heading>
