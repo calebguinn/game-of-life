@@ -3,29 +3,22 @@ import { Global } from "@emotion/react";
 import Image from "next/image";
 import { AiFillYoutube } from "react-icons/ai"
 
-export const ResourceItem = ({ children, href, title, thumbnail, width, height, float }) => (
+export const ResourceItem = ({ title, thumbnail, width, height }) => (
   <Box 
     w={width}
-    h={height}
-    m={5}
+    h={height+20}
     textAlign="center" 
-    borderRadius="12px" 
-    float={float}
+    borderRadius="lg" 
     overflow="hidden"
     borderWidth={1}
   >
-    <LinkBox cursor="pointer">
-      <Image
-        src={thumbnail}
-        alt={title}
-        placeholder="blur"
-        loading="lazy"
-      />
-      <LinkOverlay href={href} rel="noopener noreferrer" target="_blank">
-        <Text mt={2} mb={2}>{title}</Text>
-      </LinkOverlay>
-      <Text fontSize={14}>{children}</Text>
-    </LinkBox>
+    <Image
+      src={thumbnail}
+      alt={title}
+      placeholder="blur"
+      loading="lazy"
+    />
+    <Text mt={2} mb={2}>{title}</Text>
   </Box>
 )
 
