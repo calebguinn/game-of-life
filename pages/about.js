@@ -9,6 +9,11 @@ import stillBeehive from "/public/images/still-lifes/beehive.png"
 import stillBoat from "/public/images/still-lifes/boat.png"
 import stillLoaf from "/public/images/still-lifes/loaf.png"
 import stillTub from "/public/images/still-lifes/tub.png"
+import oscillatorBeacon from "/public/images/oscillators/beacon.gif"
+import oscillatorBlinker from "/public/images/oscillators/blinker.gif"
+import oscillatorPenta from "/public/images/oscillators/penta.gif"
+import oscillatorPulsar from "/public/images/oscillators/pulsar.gif"
+import oscillatorToad from "/public/images/oscillators/toad.gif"
 
 const About = () => {
   return (
@@ -116,6 +121,47 @@ const About = () => {
               <ResourceItem
                 title="Loaf"
                 thumbnail={stillLoaf}
+                width="150px"
+                height="150px"
+              />
+            </SimpleGrid>
+          </Box>
+      </Section>
+      <Section delay={0.6}>
+          <Box p={4} borderRadius="lg" maxW="100%" bg="#202023">
+            <Text fontFamily="heading" fontSize={14}>
+              Oscillators
+            </Text>
+            <SimpleGrid align="center" columns={[1,null,3]}>
+              <ResourceItem
+                title="Beacon"
+                thumbnail={oscillatorBeacon}
+                width="150px"
+                height="150px"
+              />
+              <ResourceItem
+                title="Blinker"
+                thumbnail={oscillatorBlinker} 
+                width="150px"
+                height="150px"
+              />
+              <ResourceItem
+                title="Toad"
+                thumbnail={oscillatorToad}
+                width="150px"
+                height="150px"
+              />
+            </SimpleGrid>
+            <SimpleGrid align="center" mt={2} columns={[1,null,2]}>
+              <ResourceItem
+                title="Pulsar"
+                thumbnail={oscillatorPulsar}
+                width="200px"
+                height="150px"
+              />
+              <ResourceItem
+                title="Penta-decathlon" 
+                thumbnail={oscillatorPenta} 
                 width="150px"
                 height="150px"
               />
