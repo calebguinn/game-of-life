@@ -71,9 +71,6 @@ const NavBar = props => {
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
         >
-          <LinkItem href="/configs" path={path}>
-            Configurations
-          </LinkItem>
           <LinkItem href="/about" path={path}>
             About
           </LinkItem>
@@ -103,14 +100,15 @@ const NavBar = props => {
 							/>
 							<MenuList>
 								<NextLink href="/" passHref>
-									<MenuItem as={Link}>Play</MenuItem>
+									<MenuItem as={Link}>Rules</MenuItem>
 								</NextLink>
-								<NextLink href="/configs" passHref>
-									<MenuItem as={Link}>Configurations</MenuItem>
-								</NextLink>
+                <NextLink href="/about" passHref>
+                  <MenuItem as={Link}>About</MenuItem>
+                </NextLink>
 								<MenuItem	
 									as={Link}
 									href="https://github.com/calgui1/game-of-life"
+                  target="_blank"
 								>
 									Source Code
 								</MenuItem>

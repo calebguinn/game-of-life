@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from "react";
 import { IoPlay, IoStop } from "react-icons/io5";
-import { Box, Button, Center, useColorModeValue, Stack } from "@chakra-ui/react";
+import { Box, Button, useColorModeValue, Stack } from "@chakra-ui/react";
 import produce from "immer";
 
 const numRows = 50;
@@ -13,6 +13,29 @@ const generateEmptyGrid = () => {
   }
 
   return rows;
+};
+
+const generateNextStep = ({ grid }) => {
+  return produce(grid, gridCopy => {
+    for (let i = 0; i < numRows; i++) {
+      for (let j = 0; j < numCols; j++) {
+        let neighbors = 0;
+        operations.forEach(([x, y]) => {
+          const newX = i + x;
+          const newY = j + y;
+          if (newX >= 0 && newX < numRows && newY >= 0 && newY < numCols) {
+            neighbors += grid[newX][newY];
+          }
+        });
+
+        if (neighbors < 2 || neighbors > 3) {
+          gridCopy[i][j] = 0;
+        } else if (grid[i][j] === 0 && neighbors === 3) {
+          gridCopy[i][j] = 1;
+        }
+      }
+    }
+  });
 };
 
 const operations = [
@@ -62,7 +85,6 @@ function Game() {
         }
       });
     });
-
     setTimeout(runSimulation, 100);
   }, []);
 
@@ -71,7 +93,7 @@ function Game() {
 
   return (
     <Box w='100%' bg="#202023" p={5} mt='10' borderRadius='lg'>
-      <Center>
+      <Box w="100%" overflow="hidden">
         <div
           style={{
             display: "grid",
@@ -96,7 +118,7 @@ function Game() {
             ))
           )}
         </div>
-      </Center>
+      </Box>
       <Stack justifyContent='center' direction='row' pt={5} spacing={4} align='center'>
         <Button
           bgColor={useColorModeValue('#70EFFC','#EB4595')}
@@ -107,7 +129,6 @@ function Game() {
                 Array.from(Array(numCols), () => (Math.random() > 0.7 ? 1 : 0))
               );
             }
-
             setGrid(rows);
           }}
           _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
@@ -132,28 +153,7 @@ function Game() {
           bgColor={useColorModeValue('#70EFFC','#EB4595')}
           _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
           onClick={() => {
-            setGrid(g => {
-              return produce(g, gridCopy => {
-                for (let i = 0; i < numRows; i++) {
-                  for (let j = 0; j < numCols; j++) {
-                    let neighbors = 0;
-                    operations.forEach(([x, y]) => {
-                      const newX = i + x;
-                      const newY = j + y;
-                      if (newX >= 0 && newX < numRows && newY >= 0 && newY < numCols) {
-                        neighbors += g[newX][newY];
-                      }
-                    });
-        
-                    if (neighbors < 2 || neighbors > 3) {
-                      gridCopy[i][j] = 0;
-                    } else if (g[i][j] === 0 && neighbors === 3) {
-                      gridCopy[i][j] = 1;
-                    }
-                  }
-                }
-              });
-            });
+            setGrid(generateNextStep({grid}));
           }}
         >
           Next
@@ -165,7 +165,7 @@ function Game() {
           }}
           _hover={{ bg: useColorModeValue('#04b0c3', '#b91363') }}
         >
-          Reset
+          Clear
         </Button>
       </Stack>
     </Box>
