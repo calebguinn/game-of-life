@@ -1,0 +1,35 @@
+#navbar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: #050D21;
+}
+#navbar > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#navbar > ul > li {
+  float: left;
+}
+#navbar > ul > li > h4 {
+  font-size: 1.5em;
+  font-family: "Press Start 2P";
+  color: #ccc;
+  float: left;
+  margin: 4px;
+  padding-left: 1em;
+  padding-right: .4em;
+}
+#navbar > ul > li > h3 {
+  font-size: 1em;
+  font-weight: normal;
+  color: #ccc;
+  float: left;
+  margin: 4px;
+  padding-left: 1em;
+  padding-right: .4em;
+  padding-top: 0.2em;
+  cursor: pointer;
+}
