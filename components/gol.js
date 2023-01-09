@@ -3,8 +3,8 @@ import { IoPlay, IoStop } from "react-icons/io5";
 import { Box, Button, useColorModeValue, Stack } from "@chakra-ui/react";
 import produce from "immer";
 
-const numRows = 50;
-const numCols = 120;
+const numRows = 63;
+const numCols = 150;
 
 const generateEmptyGrid = () => {
   const rows = [];
@@ -97,7 +97,7 @@ function Game() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: `repeat(${numCols}, 10px)`
+            gridTemplateColumns: `repeat(${numCols}, 8px)`
           }}
         >
           {grid.map((rows, i) => rows.map((col, j) => (
@@ -110,8 +110,8 @@ function Game() {
                 setGrid(newGrid);
               }}
               style={{
-                width: 10,
-                height: 10,
+                width: 8,
+                height: 8,
                 backgroundColor: grid[i][j] ? 'white' : undefined,
                 border: "solid 0.5px #3d3d42"
               }} />
