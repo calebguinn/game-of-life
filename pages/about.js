@@ -191,11 +191,6 @@ const About = () => {
           </SimpleGrid>
         </Box>
       </Section>
-      <Section delay={0.6}>
-        <Heading pb={2} as='h2' align='center' variant='section-title'>
-          More
-        </Heading>
-      </Section>
     </Container>
   )
 }
