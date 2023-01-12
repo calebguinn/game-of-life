@@ -17,6 +17,9 @@ p.indent {
   text-indent: 10px;
   text-align: justify;
 }
+canvas {
+	line-height: 1;
+}
 
 #navbar {
   position: fixed;
@@ -72,6 +75,7 @@ p.indent {
 	background-color: #050D21;
 	position: absolute;
 	width: 50%;
+  height: 50%;
 	top: 15%;
 	left: 22%;
 	border: 2px solid #3d3d42;
@@ -81,6 +85,7 @@ p.indent {
 	color: #ddd;
 	z-index: 10;
 	line-height: 1.4;
+  overflow: auto;
 }
 
 .button {
@@ -93,18 +98,20 @@ p.indent {
   cursor: pointer;
   width: 3em;
 }
-
 .overlay-button {
   text-align: center;
   background-color: #EB4595;
   color: #ffffff;
   border-radius: 4px;
   padding: 5px 10px;
-  margin-left: 45%;
+  margin-left: 43%;
   cursor: pointer;
   width: 5em;
 }
-
+.overlay-button > a {
+  color: #ffffff;
+  text-decoration: none;
+}
 .overlay-close-button {
   top: 0px;
   right: 0px;
@@ -119,7 +126,19 @@ p.indent {
   cursor: pointer;
   width: 2em;
 }
-
-canvas {
-	line-height: 1;
+::-webkit-scrollbar {
+  width: 6px;
+  padding-top: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #050D2120; 
+  border-radius: 6px;
+  padding: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
