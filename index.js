@@ -53,7 +53,7 @@ function pow2(x){
             drawer.redraw_background();
         }
         
-        $("run_button").onclick = function(){
+        $("start_button").onclick = function(){
             if(running){
                 stop();
             } else {
@@ -61,7 +61,7 @@ function pow2(x){
             }
         };
         
-        $("step_button").onclick = function(){
+        $("next_button").onclick = function(){
             if(!running){
                 step(true);
             }
@@ -80,7 +80,7 @@ function pow2(x){
             });
         };
         
-        $("rewind_button").onclick = function() {
+        $("reset_button").onclick = function() {
             if(rewind_state){
                 stop(function(){
                     life.root = rewind_state;
@@ -160,10 +160,10 @@ function pow2(x){
                 hide_element($("overlay"));
                 return false;
             } else if(chr === 13) {
-                $("run_button").onclick();
+                $("start_button").onclick();
                 return false;
             } else if(chr === 32) {
-                $("step_button").onclick();
+                $("next_button").onclick();
                 return false;
             } else if(chr === 189 || chr === 173 || chr === 109) {
                 drawer.zoom_centered(true);
@@ -202,7 +202,7 @@ function pow2(x){
     function stop(callback) {
         if(running) {
             running = false;
-            set_text($("run_button"), "Start");
+            set_text($("start_button"), "Start");
 
             onstop = callback;
         } else {
@@ -237,7 +237,7 @@ function pow2(x){
             interval,
             per_frame = frame_time;
         
-        set_text($("run_button"), "Stop");
+        set_text($("start_button"), "Stop");
         
         running = true;
         

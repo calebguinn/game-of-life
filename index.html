@@ -17,32 +17,21 @@
       <ul>
         <li><h4>Game of Life</h4></li>
         <li><h3 id="about_button">About</h3></li>
+        <li><h3>Controls</h3></li>
+        <li><h3>Source Code</h3></li>
       </ul>
     </div>
 
     <div id="control-bar">
-      <div class="button" id="run_button">Start</div>
-      <div class="button" id="step_button">Next</div>
-      <div class="button" id="rewind_button">Reset</div>
       <div class="button" id="clear_button">Clear</div>
+      <div class="button" id="reset_button">Reset</div>
+      <div class="button" id="next_button">Next</div>
+      <div class="button" id="start_button">Start</div>
     </div>
 
     <div id="overlay">
       <div id="about">
-        <h1>Conway's Game of Life in Javacript</h1>
-        This is an implementation of Conway's Game of Life or
-        more precisely, the <a href="http://en.wikipedia.org/wiki/Hashlife" target="_blank">Hashlife</a>-algorithm,
-        written in Javascript using the canvas-tag.<br>
-        <br>
-        It's probably the most feature-rich Game of Life that ever ran in your browser, featuring an unbound universe, a super-fast
-        step mode and a whole bunch of examples.
-        You can import patterns, change the interface, set custom rules, etc.<br>
-        <br> 
-        Technical details or the source may be published in the future.<br>
-        <br>
-        If you encounter any bugs or have feedback, you can contact me at <a href="?pattern=email">this email</a>.<br>
-        <br>
-        <br>
+        <h1>Conway's Game of Life</h1>
         <div id="notice">
           <h4>Sorry, this page needs Javascript to work properly.</h4>
           <img src="error.png" alt="gosper glider gun">
@@ -50,7 +39,7 @@
           <br>
           Maybe you want to see some <a href="/">other things</a>.
         </div>
-        <span class="button2" id="about_close" style="display: none">ok</span>
+        <span class="button" id="about_close" style="display: none">Close</span>
       </div>
     </div>
   </body>
