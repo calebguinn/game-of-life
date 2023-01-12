@@ -5,11 +5,45 @@ body {
   font-family: sans-serif;
   overflow: hidden;
 }
-h1 {
+div.pattern-section {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: #202023;
+  border-radius: 15px;
+  padding: 15px 15px;
+}
+div.pattern {
+  border-radius: 15px;
+  border: 0.5px solid #3d3d42;
+  overflow: hidden;
+  width: 100px;
+  margin: auto;
+}
+div.pattern > p {
+  width: 100%;
+  text-align: center;
+}
+div.pattern-large {
+  border-radius: 15px;
+  border: 0.5px solid #3d3d42;
+  overflow: hidden;
+  width: 200px;
+  margin: auto;
+}
+div.pattern-large > p {
+  width: 100%;
+  text-align: center;
+}
+h1.custom {
   font-family: "Press Start 2P";
   font-size: 16px;
 }
-h2 {
+h2.custom {
+  font-family: "Press Start 2P";
+  font-size: 14px;
+}
+h3.custom {
   font-family: "Press Start 2P";
   font-size: 12px;
 }
