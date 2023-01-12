@@ -5,6 +5,18 @@ body {
   font-family: sans-serif;
   overflow: hidden;
 }
+h1 {
+  font-family: "Press Start 2P";
+  font-size: 16px;
+}
+h2 {
+  font-family: "Press Start 2P";
+  font-size: 12px;
+}
+p.indent {
+  text-indent: 10px;
+  text-align: justify;
+}
 
 #navbar {
   position: fixed;
@@ -43,7 +55,6 @@ body {
   padding-top: 0.2em;
   cursor: pointer;
 }
-
 #control-bar {
   position: fixed;
   bottom: 0px;
@@ -89,8 +100,24 @@ body {
   color: #ffffff;
   border-radius: 4px;
   padding: 5px 10px;
-  margin: 10px;
+  margin-left: 45%;
   cursor: pointer;
+  width: 5em;
+}
+
+.overlay-close-button {
+  top: 0px;
+  right: 0px;
+  float: right;
+  position: sticky;
+  text-align: center;
+  background-color: #EB4595;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 0px 10px;
+  cursor: pointer;
+  width: 2em;
 }
 
 canvas {

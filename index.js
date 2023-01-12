@@ -1,9 +1,7 @@
-"use strict";
-
+"use strict"; 
 function pow2(x){
   return Math.pow(2, x);
 }
-
 
 (function() {
     var onstop,
