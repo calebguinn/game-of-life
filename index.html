@@ -59,9 +59,33 @@
         <h2 class="custom">Rules</h2>
         <div class="rules-section">
           <h3 class="custom">1. Overpopulation</h3>
+          <div class="rule">
+            <p>Any cell with 4 or more neighbors will die, as if by overpopulation.</p>
+            <img class="rule-image" src="/images/rules/overpopulationBefore.png"/>
+            <img id="right-arrow" src="/images/arrow-right.svg"/>
+            <img class="rule-image" src="/images/rules/overpopulationAfter.png"/>
+          </div>
           <h3 class="custom">2. Underpopulation</h3>
+          <div class="rule">
+            <p>Any cell with less than 2 neighbors will die, as if by underpopulation.</p>
+            <img class="rule-image" src="/images/rules/underpopulationBefore.png"/>
+            <img id="right-arrow" src="/images/arrow-right.svg"/>
+            <img class="rule-image" src="/images/rules/underpopulationAfter.png"/>
+          </div>
           <h3 class="custom">3. Reproduction</h3>
+          <div class="rule">
+            <p>Any dead cell surrounded with 3 neighbors will come to life, as if by reproduction.</p>
+            <img class="rule-image" src="/images/rules/reproductionBefore.png"/>
+            <img id="right-arrow" src="/images/arrow-right.svg"/>
+            <img class="rule-image" src="/images/rules/reproductionAfter.png"/>
+          </div>
           <h3 class="custom">4. Survival</h3>
+          <div class="rule">
+            <p>Any cell with 2 or 3 live neighbors will continue to live to the next generation.</p>
+            <img class="rule-image" src="/images/rules/survivalBefore.png"/>
+            <img id="right-arrow" src="/images/arrow-right.svg"/>
+            <img class="rule-image" src="/images/rules/survivalAfter.png"/>
+          </div>
         </div>
         <br>
         <h2 class="custom">Pattern Types</h2>
