@@ -12,7 +12,7 @@ function Board(){
       screen_top, 
       screen_right, 
       screen_bottom,
-      drawer = this;
+      board = this;
 
   this.width = 0;
   this.height = 0;
@@ -33,10 +33,10 @@ function Board(){
     canvas = document.createElement("canvas");
     
     if(!canvas.getContext) {
-        return false;
+      return false;
     }
 
-    drawer.canvas = background_canvas = document.createElement("canvas");
+    board.canvas = background_canvas = document.createElement("canvas");
     offscreen_canvas = document.createElement("canvas");
     
     context = offscreen_canvas.getContext("2d");
@@ -56,7 +56,7 @@ function Board(){
       offscreen_canvas.width = background_canvas.width = canvas.width = width;
       offscreen_canvas.height = background_canvas.height = canvas.height = height;
       
-      context.fillStyle = drawer.cell_color;
+      context.fillStyle = board.cell_color;
     }
   }
 
@@ -80,18 +80,18 @@ function Board(){
       if(node.level === 0){
         if(node.population){
           context.fillRect(
-            canvas_offset_x + left * drawer.cell_width,
-            canvas_offset_y + top * drawer.cell_width,
-            drawer.cell_width,
-            drawer.cell_width
+            canvas_offset_x + left * board.cell_width,
+            canvas_offset_y + top * board.cell_width,
+            board.cell_width,
+            board.cell_width
           );
         }
       }
-      else if(offset2 * drawer.cell_width <= 1){
+      else if(offset2 * board.cell_width <= 1){
         if(node.population){
           context.fillRect(
-            canvas_offset_x + left * drawer.cell_width | 0,
-            canvas_offset_y + top * drawer.cell_width | 0,
+            canvas_offset_x + left * board.cell_width | 0,
+            canvas_offset_y + top * board.cell_width | 0,
             1,
             1
           );
@@ -107,14 +107,14 @@ function Board(){
   }
 
   function redraw_part(node, x, y, width, height){
-    screen_left = Math.floor((x - canvas_offset_x) / drawer.cell_width);
-    screen_top = Math.floor((y - canvas_offset_y) / drawer.cell_width);
-    screen_right = Math.ceil((x - canvas_offset_x + width) / drawer.cell_width); 
-    screen_bottom = Math.ceil((y - canvas_offset_y + height) / drawer.cell_width);
+    screen_left = Math.floor((x - canvas_offset_x) / board.cell_width);
+    screen_top = Math.floor((y - canvas_offset_y) / board.cell_width);
+    screen_right = Math.ceil((x - canvas_offset_x + width) / board.cell_width); 
+    screen_bottom = Math.ceil((y - canvas_offset_y + height) / board.cell_width);
 
-    context.fillStyle = drawer.background_color;
+    context.fillStyle = board.background_color;
     context.fillRect(x, y, width, height);
-    context.fillStyle = drawer.cell_color;
+    context.fillStyle = board.cell_color;
 
     var offset = pow2(node.level - 1);
     
@@ -128,7 +128,7 @@ function Board(){
   }
 
   function redraw_background(){
-    var border_width = drawer.border_width * drawer.cell_width | 0;
+    var border_width = board.border_width * board.cell_width | 0;
 
     background_context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -136,19 +136,19 @@ function Board(){
       return;
     }
     
-    background_context.fillStyle = drawer.border_color;
+    background_context.fillStyle = board.border_color;
     
-    var x = canvas_offset_x % drawer.cell_width - border_width;
-    for(; x < canvas.width; x += drawer.cell_width){
+    var x = canvas_offset_x % board.cell_width - border_width;
+    for(; x < canvas.width; x += board.cell_width){
       background_context.fillRect(x, 0, border_width, canvas.height);
     }
     
-    var y = canvas_offset_y % drawer.cell_width - border_width;
-    for(; y < canvas.height; y += drawer.cell_width){
+    var y = canvas_offset_y % board.cell_width - border_width;
+    for(; y < canvas.height; y += board.cell_width){
       background_context.fillRect(0, y, canvas.width, border_width);
     }
     
-    background_context.fillStyle = drawer.cell_color;
+    background_context.fillStyle = board.cell_color;
   }
 
   function zoom(out, center_x, center_y){
@@ -156,13 +156,13 @@ function Board(){
       canvas_offset_x -= Math.round((canvas_offset_x - center_x) / 2);
       canvas_offset_y -= Math.round((canvas_offset_y - center_y) / 2);
       
-      drawer.cell_width /= 2;
+      board.cell_width /= 2;
     }
     else{
       canvas_offset_x += Math.round(canvas_offset_x - center_x);
       canvas_offset_y += Math.round(canvas_offset_y - center_y);
       
-      drawer.cell_width *= 2;
+      board.cell_width *= 2;
     }
   }
 
@@ -171,11 +171,11 @@ function Board(){
   }
 
   function zoom_to(level){
-    while(drawer.cell_width > level){
+    while(board.cell_width > level){
         zoom_centered(true);
     }
 
-    while(drawer.cell_width * 2 < level){
+    while(board.cell_width * 2 < level){
         zoom_centered(false);
     }
   }
@@ -205,27 +205,27 @@ function Board(){
       redraw_part(node, 0, 0, canvas.width, dy);
     }
 
-    drawer.redraw_background();
+    board.redraw_background();
   }
 
   function draw_cell(x, y, set){
-    var cell_x = x * drawer.cell_width + canvas_offset_x,
-        cell_y = y * drawer.cell_width + canvas_offset_y;
+    var cell_x = x * board.cell_width + canvas_offset_x,
+        cell_y = y * board.cell_width + canvas_offset_y;
 
     if(set) {
-      foreground_context.fillStyle = drawer.cell_color;
+      foreground_context.fillStyle = board.cell_color;
     }
     else {
-      foreground_context.fillStyle = drawer.background_color;
+      foreground_context.fillStyle = board.background_color;
     }
 
-    foreground_context.fillRect(cell_x, cell_y, drawer.cell_width, drawer.cell_width);
+    foreground_context.fillRect(cell_x, cell_y, board.cell_width, board.cell_width);
   }
 
   function pixel_to_cell(x, y){
     return {
-      x : Math.floor((x - canvas_offset_x + drawer.border_width / 2) / drawer.cell_width),
-      y : Math.floor((y - canvas_offset_y + drawer.border_width / 2) / drawer.cell_width)
+      x : Math.floor((x - canvas_offset_x + board.border_width / 2) / board.cell_width),
+      y : Math.floor((y - canvas_offset_y + board.border_width / 2) / board.cell_width)
     };
   }
 }
