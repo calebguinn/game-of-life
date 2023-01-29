@@ -15,7 +15,8 @@
       max_fps,
       loaded = false,
       game = new Game(),
-      board = new Board(); 
+      board = new Board(),
+      patterns_loaded = false; 
 
   var nextFrame =
       window.requestAnimationFrame ||
@@ -323,9 +324,13 @@
       }
 
       $("patterns_button").onclick = function(){
-        show_overlay("patterns_list");
-      }
+        if(patterns_loaded){
+          show_overlay("patterns");
+          return;
+        }
 
+        patterns_loaded = true;
+      }
 
     }
   };
@@ -382,6 +387,31 @@
 
   function hide_element(node){
     node.style.display = "none";
+  }
+
+  function request_url(url, onready, onerror){
+    var http = new XMLHttpRequest();
+
+    http.onreadystatechange = function(){
+      if(http.readyState === 4){
+        if(http.status === 200){
+          onready(http.responseText, url);
+        } else {
+          if(onerror) {
+            onerror(http.responseText, http.status);
+          }
+        }
+      }
+    };
+
+    http.open("get", url, true);
+    http.send("");
+
+    return {
+      cancel : function() {
+        http.abort();
+      }
+    };
   }
 
   function lazy_redraw(node){
