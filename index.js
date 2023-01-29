@@ -338,15 +338,16 @@
           show_overlay("patterns");
           patterns.forEach(function(pattern){
             var name = pattern.split(" ")[0],
-                size = pattern.split(" ")[1],
-                name_element = document.createElement("div"),
-                size_element = document.createElement("span");
+                name_element = document.createElement("div");
             
             set_text(name_element, name);
-            set_text(size_element, size);
-            size_element.className = "size-element";
-            name_element.appendChild(size_element);
             list.appendChild(name_element);
+
+            name_element.onclick = function(){
+              request_url(find_rle(name), function(text){
+
+              })
+            }
           })
         })
       }
@@ -502,6 +503,11 @@
       nextFrame(update);
     }
     update();
+  }
+
+  function find_rle(id){
+    id = id + ".rle";
+    return "//127.0.0.1:5500/examples/" + id;
   }
 
   function step(is_single){
