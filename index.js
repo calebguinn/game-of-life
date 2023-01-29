@@ -317,6 +317,16 @@
       $("controls_button").onclick = function(){
         show_overlay("controls");
       }
+
+      $("patterns_close").onclick = function(){
+        hide_overlay();
+      }
+
+      $("patterns_button").onclick = function(){
+        show_overlay("patterns_list");
+      }
+
+
     }
   };
 
