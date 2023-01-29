@@ -249,16 +249,16 @@
           return true;
         }
 
-        if(chr === 37 || chr === 72){
+        if(chr === 37 || chr === 65){
           board.move(15, 0);
           do_redraw = true;
-        }else if(chr === 38 || chr === 75){
+        }else if(chr === 38 || chr === 87){
           board.move(0, 15);
           do_redraw = true;
-        }else if(chr === 39 || chr === 76){
+        }else if(chr === 39 || chr === 68){
           board.move(-15, 0);
           do_redraw = true;
-        }else if(chr === 40 || chr === 74){
+        }else if(chr === 40 || chr === 83){
           board.move(0, -15);
           do_redraw = true;
         }else if(chr === 27){
@@ -309,6 +309,14 @@
       $("about_button").onclick = function(){
         show_overlay("about");
       };
+
+      $("controls_close").onclick = function(){
+        hide_overlay();
+      }
+
+      $("controls_button").onclick = function(){
+        show_overlay("controls");
+      }
     }
   };
 

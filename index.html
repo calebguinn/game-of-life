@@ -17,8 +17,7 @@
       <ul>
         <li><h2>Game of Life</h2></li>
         <li><h3 id="about_button">About</h3></li>
-        <li><h3>Controls</h3></li>
-        <li><h3>Source Code</h3></li>
+        <li><h3 id="controls_button">Controls</h3></li>
       </ul>
     </div>
     <div id="control-bar">
@@ -159,6 +158,26 @@
             <p>Light Spaceship</p>
           </div>
         </div>
+      </div>
+      <div id="controls">
+        <div class="overlay-close-button" id="controls_close">X</div>
+        <h1 class="custom">Controls</h1>
+        <br>
+        <h2 class="custom">Mouse</h2>
+        <pre>
+          Left Mouse                - Move
+          Right Mouse               - Create/Delete Cells
+        </pre>
+        <h2 class="custom">Keys</h2>
+        <pre>
+          Arrow Keys, WASD          - Move
+          +, -                      - Zoom
+          Space                     - Next Generation
+          Enter                     - Start/Stop
+          Backspace                 - Reset
+          ]                         - Speed Up
+          [                         - Slow Down
+        </pre>
       </div>
     </div>
     <script>document.getElementById("overlay").style.display = "none"</script>
