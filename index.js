@@ -330,6 +330,25 @@
         }
 
         patterns_loaded = true;
+
+        request_url("//127.0.0.1:5501/patterns/list", function(text){
+          var patterns = text.split("\n"),
+              list = $("patterns-list");
+
+          show_overlay("patterns");
+          patterns.forEach(function(pattern){
+            var name = pattern.split(" ")[0],
+                size = pattern.split(" ")[1],
+                name_element = document.createElement("div"),
+                size_element = document.createElement("span");
+            
+            set_text(name_element, name);
+            set_text(size_element, size);
+            size_element.className = "size-element";
+            name_element.appendChild(size_element);
+            list.appendChild(name_element);
+          })
+        })
       }
 
     }
