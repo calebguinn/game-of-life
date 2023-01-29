@@ -129,7 +129,7 @@
       board.canvas.onmousedown = function(e){
           if(e.which === 3 || e.which === 2){
             if(board.cell_width >= 1){
-              var coords = board.pixel2cell(e.clientX, e.clientY);
+              var coords = board.pixel_to_cell(e.clientX, e.clientY);
 
               mouse_set = !game.get_bit(coords.x, coords.y);
 
@@ -342,7 +342,7 @@
   }
 
   function do_field_draw(e){
-    var coords = board.pixel2cell(e.clientX, e.clientY);
+    var coords = board.pixel_to_cell(e.clientX, e.clientY);
 
     if(coords.x !== last_mouse_x || coords.y !== last_mouse_y){
       game.set_bit(coords.x, coords.y, mouse_set);
