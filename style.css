@@ -169,11 +169,6 @@ pre {
   color: #000000;
   background-color: #F8D648;
 }
-#patterns span.size-element {
-  color: #999999;
-  font-size: 80%;
-  margin-left: 10px;
-}
 #patterns-list {
   overflow: hidden;
 }

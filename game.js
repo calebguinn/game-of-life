@@ -308,7 +308,7 @@ Game.prototype.get_bounds = function(field_x, field_y) {
 
   for(var i = 1; i < len; i++) {
     var x = field_x[i],
-        y = field_y[i];
+        y = field_y[i] - 50;
 
     if(x < bounds.left) {
       bounds.left = x;

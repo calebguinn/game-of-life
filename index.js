@@ -253,37 +253,38 @@
         if(chr === 37 || chr === 65){
           board.move(15, 0);
           do_redraw = true;
-        }else if(chr === 38 || chr === 87){
+        } else if(chr === 38 || chr === 87){
           board.move(0, 15);
           do_redraw = true;
-        }else if(chr === 39 || chr === 68){
+        } else if(chr === 39 || chr === 68){
           board.move(-15, 0);
           do_redraw = true;
-        }else if(chr === 40 || chr === 83){
+        } else if(chr === 40 || chr === 83){
           board.move(0, -15);
           do_redraw = true;
-        }else if(chr === 27){
+        } else if(chr === 27){
           hide_overlay();
           return false;
-        }else if(chr === 13){
-          $("start_button").onclick();
-          return false;
-        }else if(chr === 32){
+        } else if(chr === 13){
           $("next_button").onclick();
           return false;
-        }else if(chr === 9){
-          $("supernext_button").onclick();
+        } else if(chr === 32){
+          $("start_button").onclick();
           return false;
-        }else if(chr === 189 || chr === 173 || chr === 109){
+        } else if(chr === 189 || chr === 173 || chr === 109){
           board.zoom_centered(true);
           do_redraw = true;
-        }else if(chr === 187 || chr === 61){
+        } else if(chr === 187 || chr === 61){
           board.zoom_centered(false);
           do_redraw = true;
-        }else if(chr === 8){
+        } else if(chr === 8){
           $("reset_button").onclick();
           return false;
-        }else if(chr === 219 || chr === 221){
+        } else if (chr === 70) {
+          fit_pattern();
+          do_redraw = true;
+          return false;
+        } else if(chr === 219 || chr === 221){
           var step = game.step;
           if(chr === 219)
             step--;
@@ -345,7 +346,7 @@
 
             name_element.onclick = function(){
               request_url(find_rle(name), function(text){
-
+                setup_rle(text, name);
               })
             }
           })
@@ -400,6 +401,11 @@
     board.fit_bounds(bounds);
   }
 
+  function find_rle(id){
+    id = id + ".rle";
+    return "//127.0.0.1:5501/patterns/" + id;
+  }
+
   function hide_overlay(){
     hide_element($("overlay"));
     document.body.style.overflow = "hidden";
@@ -407,6 +413,12 @@
 
   function hide_element(node){
     node.style.display = "none";
+  }
+
+  function lazy_redraw(node){
+    if(!running || max_fps < 15){
+      board.redraw(node);
+    }
   }
 
   function request_url(url, onready, onerror){
@@ -432,12 +444,6 @@
         http.abort();
       }
     };
-  }
-
-  function lazy_redraw(node){
-    if(!running || max_fps < 15){
-      board.redraw(node);
-    }
   }
 
   function reset_settings(){
@@ -503,11 +509,6 @@
       nextFrame(update);
     }
     update();
-  }
-
-  function find_rle(id){
-    id = id + ".rle";
-    return "//127.0.0.1:5500/examples/" + id;
   }
 
   function step(is_single){
@@ -578,6 +579,304 @@
   function show_element(node){
     node.style.display = "block";
   }
+
+  function setup_rle(pattern_text, pattern_id, pattern_source_url, view_url, title)
+  {
+    var result = parse_rle(pattern_text.trim());
+
+    if(result.error){
+      return;
+    }
+
+    stop(function() {
+      if(title && !result.title) {
+        result.title = title;
+      }
+
+      if(pattern_id && !result.title) {
+        result.title = pattern_id;
+      }
+
+      game.clear_pattern();
+
+      var bounds = game.get_bounds(result.field_x, result.field_y);
+      game.make_center(result.field_x, result.field_y, bounds);
+      game.setup_field(result.field_x, result.field_y, bounds);
+
+      game.save_rewind_state();
+      game.set_step(0);
+
+      if(result.rule_s && result.rule_b) {
+        game.set_rules(result.rule_s, result.rule_b);
+      } else {
+        game.set_rules(1 << 2 | 1 << 3, 1 << 3);
+      }
+
+      hide_overlay();
+
+      fit_pattern();
+      board.redraw(game.root);
+
+      set_title(result.title);
+
+      document.querySelector("meta[name=description]").content =
+        result.comment.replace(/\n/g, " - ") + " - " + initial_description;
+
+      if(!pattern_source_url && pattern_id){
+        pattern_source_url = find_rle(pattern_id, true);
+      }
+
+      if(!view_url && pattern_id){
+        view_url = "//127.0.0.1:5501/patterns/?pattern=" + pattern_id;
+      }
+
+      var current_pattern = {
+        title : result.title,
+        comment : result.comment,
+        urls : result.urls,
+        view_url : view_url,
+        source_url: pattern_source_url,
+      };
+    });
+  }
+
+  function parse_rle(pattern_string){
+    var result = parse_comments(pattern_string, "#"),
+        x = 0, y = 0,
+        header_match,
+        expr = /([a-zA-Z]+) *= *([a-zA-Z0-9\/()]+)/g,
+        match;
+
+    pattern_string = result.pattern_string;
+    var pos = pattern_string.indexOf("\n");
+
+    if(pos === -1){
+      return { error : "RLE Syntax Error: No Header" };
+    }
+
+    while(header_match = expr.exec(pattern_string.substr(0, pos))){
+      switch(header_match[1]){
+        case "x":
+          result.width = Number(header_match[2]);
+          break;
+
+        case "y":
+          result.height = Number(header_match[2]);
+          break;
+
+        case "rule":
+          result.rule_s = parse_rule_rle(header_match[2], true);
+          result.rule_b = parse_rule_rle(header_match[2], false);
+
+          result.comment += "\nRule: " + rule_to_string(result.rule_s, result.rule_b) + "\n";
+          result.rule = rule_to_string(result.rule_s, result.rule_b);
+          break;
+
+        case "alpha":
+        case "color":
+          break;
+
+        default:
+          return { error : "RLE Syntax Error: Invalid Header: " + header_match[1] };
+      }
+    }
+    var initial_size = 0x100;
+
+    if(result.width && result.height){
+      var size = result.width * result.height;
+
+      if(size > 0){
+        initial_size = Math.max(initial_size, size * .009 | 0);
+        initial_size = Math.min(0x1000000, initial_size);
+      }
+    }
+
+    var count = 1,
+        in_number = false,
+        chr,
+        field_x = new Int32Array(initial_size),
+        field_y = new Int32Array(initial_size),
+        alive_count = 0,
+        len = pattern_string.length;
+
+    for(; pos < len; pos++){
+      chr = pattern_string.charCodeAt(pos);
+
+      if(chr >= 48 && chr <= 57){
+        if(in_number){
+          count *= 10;
+          count += chr ^ 48;
+        } else {
+          count = chr ^ 48;
+          in_number = true;
+        }
+      } else {
+        if(chr === 98) {
+          x += count;
+        } else if(chr >= 65 && chr <= 90 || chr >= 97 && chr < 122) {
+
+          if(alive_count + count > field_x.length) {
+            field_x = increase_buffer_size(field_x);
+            field_y = increase_buffer_size(field_y);
+          }
+
+          while(count--) {
+            field_x[alive_count] = x++;
+            field_y[alive_count] = y;
+            alive_count++;
+          }
+        } else if(chr === 36) {
+          y += count;
+          x = 0;
+        } else if(chr === 33) {
+          break;
+        }
+
+        count = 1;
+        in_number = false;
+      }
+    }
+    result.field_x = new Int32Array(field_x.buffer, 0, alive_count);
+    result.field_y = new Int32Array(field_y.buffer, 0, alive_count);
+
+    return result;
+  }
+
+    function increase_buffer_size(buffer) {
+      var new_buffer = new Int32Array(buffer.length * 1.5 | 0);
+      new_buffer.set(buffer);
+      return new_buffer;
+    }
+
+    function parse_comments(pattern_string, comment_char) {
+      var result = {
+              comment: "",
+              urls: [],
+              short_comment: "",
+          },
+          nl,
+          line,
+          cont,
+          advanced = comment_char === "#";
+
+      while(pattern_string[0] === comment_char) {
+        nl = pattern_string.indexOf("\n");
+        line = pattern_string.substr(1, nl - 1);
+        cont = true;
+
+        if(advanced) {
+          line = line.substr(1).trim();
+          switch(pattern_string[1]) {
+            case "N":
+              if(line) {
+                result.title = line;
+              } else {
+                result.rule = "23/3";
+              }
+              cont = false;
+              break;
+
+            case "C":
+            case "D":
+              if(!result.short_comment) {
+                result.short_comment = line;
+              }
+              break;
+
+            case "O":
+              result.author = line;
+              break;
+
+            case "R":
+              result.rule = line;
+              cont = false;
+              break;
+
+            default:
+              cont = false;
+          }
+        }
+
+        if(cont) {
+          if(/^(?:https?:\/\/|www\.)[a-z0-9]/i.test(line)) {
+            if(line.substr(0, 4) !== "http") {
+              line = "http://" + line;
+            }
+
+            result.urls.push(line);
+          } else if(line.substr(0, 5) === "Name:") {
+            result.title = line.substr(5);
+          } else {
+            result.comment += line;
+
+            if(nl !== 70 && nl !== 80) {
+              result.comment += "\n";
+            }
+          }
+        }
+        pattern_string = pattern_string.substr(nl + 1);
+      }
+
+      result.pattern_string = pattern_string;
+      result.comment = result.comment.trim();
+
+      return result;
+    }
+
+    function parse_rule_rle(rule_str, survived) {
+      rule_str = rule_str.split("/");
+
+      if(!rule_str[1]) {
+        return false;
+      }
+
+      if(Number(rule_str[0])) {
+        return parse_rule(rule_str.join("/"), survived);
+      }
+
+      if(rule_str[0][0].toLowerCase() === "b") {
+        rule_str.reverse();
+      }
+
+      return parse_rule(rule_str[0].substr(1) + "/" + rule_str[1].substr(1), survived);
+    }
+
+    function parse_rule(rule_str, survived) {
+      var rule = 0,
+          parsed = rule_str.split("/")[survived ? 0 : 1];
+
+      for(var i = 0; i < parsed.length; i++) {
+        var n = Number(parsed[i]);
+
+        if(isNaN(n) || rule & 1 << n) {
+          return false;
+        }
+
+        rule |= 1 << n;
+      }
+
+      return rule;
+    }
+
+    function rule_to_string(rule_s, rule_b){
+      var rule = "";
+
+      for(var i = 0; rule_s; rule_s >>= 1, i++) {
+        if(rule_s & 1) {
+          rule += i;
+        }
+      }
+
+      rule += "/";
+
+      for(var i = 0; rule_b; rule_b >>= 1, i++) {
+        if(rule_b & 1) {
+          rule += i;
+        }
+      }
+
+      return rule;
+    }
 
   function $(id){
     return document.getElementById(id);
