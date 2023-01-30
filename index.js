@@ -344,7 +344,7 @@
 
         patterns_loaded = true;
 
-        request_url("//127.0.0.1:5501/patterns/list", function(text){
+        request_url("https://life-calgui.vercel.app/patterns/list", function(text){
           var patterns = text.split("\n"),
               list = $("patterns-list");
 
@@ -415,7 +415,7 @@
 
   function find_rle(id){
     id = id + ".rle";
-    return "//127.0.0.1:5501/patterns/" + id;
+    return "https://life-calgui.vercel.app/patterns/" + id;
   }
 
   function hide_overlay(){
@@ -639,7 +639,7 @@
       }
 
       if(!view_url && pattern_id){
-        view_url = "//127.0.0.1:5501/patterns/?pattern=" + pattern_id;
+        view_url = "https://life-calgui.vercel.app//patterns/?pattern=" + pattern_id;
       }
 
       var current_pattern = {
