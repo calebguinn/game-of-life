@@ -344,7 +344,7 @@
 
         patterns_loaded = true;
 
-        request_url("https://calgui.io/patterns/list", function(text){
+        request_url("https://life.calgui.io/patterns/list", function(text){
           var patterns = text.split("\n"),
               list = $("patterns-list");
 
