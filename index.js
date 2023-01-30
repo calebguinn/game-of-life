@@ -306,25 +306,37 @@
 
       $("about_close").onclick = function(){
         hide_overlay();
+        $("about_button").className = "";
       };
 
       $("about_button").onclick = function(){
         show_overlay("about");
+        $("about_button").className = "active";
+        $("patterns_button").className = "";
+        $("controls_button").className = "";
       };
 
       $("controls_close").onclick = function(){
         hide_overlay();
+        $("controls_button").className = "";
       }
 
       $("controls_button").onclick = function(){
         show_overlay("controls");
+        $("controls_button").className = "active";
+        $("patterns_button").className = "";
+        $("about_button").className = "";
       }
 
       $("patterns_close").onclick = function(){
         hide_overlay();
+        $("patterns_button").className = "";
       }
 
       $("patterns_button").onclick = function(){
+        $("patterns_button").className = "active";
+        $("about_button").className = "";
+        $("controls_button").className = "";
         if(patterns_loaded){
           show_overlay("patterns");
           return;
@@ -537,8 +549,8 @@
 
   function show_overlay(overlay_id) {
     show_element($("overlay"));
-    document.body.style.overflow = "auto";
-
+    document.body.style.overflow = "hidden";
+    
     var overlays = $("overlay").children;
 
     for(var i = 0; i < overlays.length; i++){

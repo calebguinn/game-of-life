@@ -89,6 +89,11 @@ pre {
   width: 80%;
   font-size: 15px;
 }
+h3.active {
+  color: #202023 !important;
+  background-color: #70effc;
+  text-decoration: underline;
+}
 #right-arrow {
   width: 50px;
   height: 100px;
@@ -107,9 +112,6 @@ pre {
   margin: 0;
   padding: 0;
 }
-#navbar > ul > li {
-  float: left;
-}
 #navbar > ul > li > h2 {
   font-size: 1.5em;
   font-family: "Press Start 2P";
@@ -126,7 +128,7 @@ pre {
   float: left;
   margin: 4px;
   padding-left: 1em;
-  padding-right: .4em;
+  padding-right: 1em;
   padding-top: 0.2em;
   cursor: pointer;
 }
@@ -146,6 +148,7 @@ pre {
 #overlay {
   background-color: #050D21;
   position: absolute;
+  margin: 0px;
   width: 70%;
   height: 50%;
   top: 15%;
@@ -171,6 +174,7 @@ pre {
 }
 #patterns-list {
   overflow: hidden;
+  margin-left: 50px;
 }
 
 .button {
@@ -182,6 +186,9 @@ pre {
   margin: 10px;
   cursor: pointer;
   width: 3em;
+}
+.button:hover{
+  background-color: #e14490ad;
 }
 .overlay-button {
   text-align: center;
