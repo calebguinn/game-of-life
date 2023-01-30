@@ -639,7 +639,7 @@
       }
 
       if(!view_url && pattern_id){
-        view_url = "https://life.calgui.io//patterns/?pattern=" + pattern_id;
+        view_url = "https://life.calgui.io/patterns/?pattern=" + pattern_id;
       }
 
       var current_pattern = {
